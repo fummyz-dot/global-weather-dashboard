@@ -1,4 +1,4 @@
-import { Code2, ExternalLink } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 
 import type { DataSource } from "../../types/weather";
 import { formatGeneratedAt } from "../../utils/dateTime";
@@ -9,7 +9,9 @@ interface SiteFooterProps {
 }
 
 export function SiteFooter({ generatedAt, source }: SiteFooterProps) {
-  const repositoryUrl = import.meta.env.VITE_GITHUB_REPOSITORY_URL?.trim();
+  const repositoryUrl =
+    import.meta.env.VITE_GITHUB_REPOSITORY_URL?.trim() ||
+    "https://github.com/fummyz-dot/global-weather-dashboard";
   const sourceUrl = source?.url ?? "https://open-meteo.com/";
   return (
     <footer className="mt-16 border-t border-slate-400/15 py-8 text-sm text-slate-400">
@@ -40,22 +42,15 @@ export function SiteFooter({ generatedAt, source }: SiteFooterProps) {
           </p>
           <p>データ取得日時: {formatGeneratedAt(generatedAt)}</p>
         </div>
-        {repositoryUrl ? (
-          <a
-            href={repositoryUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 self-start rounded-lg px-2 font-medium text-slate-200 hover:text-white md:self-auto"
-          >
-            <Code2 className="h-4 w-4" aria-hidden="true" />
-            GitHubリポジトリ
-          </a>
-        ) : (
-          <p className="inline-flex items-center gap-2 text-xs">
-            <Code2 className="h-4 w-4" aria-hidden="true" />
-            リポジトリリンクは準備中
-          </p>
-        )}
+        <a
+          href={repositoryUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex min-h-11 items-center gap-2 self-start rounded-lg px-2 font-medium text-slate-200 hover:text-white md:self-auto"
+        >
+          <Github className="h-[18px] w-[18px]" aria-hidden="true" />
+          GitHub リポジトリ
+        </a>
       </div>
     </footer>
   );
